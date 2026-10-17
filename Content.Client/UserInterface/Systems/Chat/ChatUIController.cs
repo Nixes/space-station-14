@@ -46,6 +46,7 @@ public sealed partial class ChatUIController : UIController
 {
     [Dependency] private IClientAdminManager _admin = default!;
     [Dependency] private IChatManager _manager = default!;
+    [Dependency] private IChatLogManager _chatLog = default!;
     [Dependency] private IConfigurationManager _config = default!;
     [Dependency] private IEyeManager _eye = default!;
     [Dependency] private IEntityManager _ent = default!;
@@ -813,6 +814,11 @@ public sealed partial class ChatUIController : UIController
     private void OnChatMessage(MsgChatMessage message)
     {
         var msg = message.Message;
+        if (!msg.HideChat)
+        {
+            _chatLog.LogMessage(msg.Channel, msg.WrappedMessage);
+        }
+
         ProcessChatMessage(msg);
 
         if ((msg.Channel & ChatChannel.AdminRelated) == 0 ||

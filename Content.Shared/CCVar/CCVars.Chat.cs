@@ -99,4 +99,40 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<bool> ChatNameLinks =
         CVarDef.Create("chat.chat_name_links", true, CVar.REPLICATED | CVar.SERVER, "Toggles Chat Name Link functionality.");
+
+    /// <summary>
+    ///     Enables logging client-received chatbox messages to per-session JSON Lines files in user data.
+    /// </summary>
+    public static readonly CVarDef<bool> ChatLogEnabled =
+        CVarDef.Create("chat.log_enabled",
+            false,
+            CVar.CLIENTONLY | CVar.ARCHIVE,
+            "Enables logging client-received chatbox messages to per-session JSON Lines files in user data.");
+
+    /// <summary>
+    ///     Directory path inside user data where session chat log files are written.
+    /// </summary>
+    public static readonly CVarDef<string> ChatLogDirectory =
+        CVarDef.Create("chat.log_directory",
+            "/chat-logs",
+            CVar.CLIENTONLY | CVar.ARCHIVE,
+            "Directory path inside user data where session chat log files are written.");
+
+    /// <summary>
+    ///     Number of days to retain session chat log files (0 to keep indefinitely).
+    /// </summary>
+    public static readonly CVarDef<int> ChatLogRetentionDays =
+        CVarDef.Create("chat.log_retention_days",
+            7,
+            CVar.CLIENTONLY | CVar.ARCHIVE,
+            "Number of days to retain session chat log files (0 to keep indefinitely).");
+
+    /// <summary>
+    ///     Whether admin-related chat channels are included in client chat logs.
+    /// </summary>
+    public static readonly CVarDef<bool> ChatLogRecordAdmin =
+        CVarDef.Create("chat.log_record_admin",
+            false,
+            CVar.CLIENTONLY | CVar.ARCHIVE,
+            "Whether admin-related chat channels are included in client chat logs.");
 }

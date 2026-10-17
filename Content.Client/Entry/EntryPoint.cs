@@ -61,6 +61,7 @@ namespace Content.Client.Entry
         [Dependency] private IInputManager _inputManager = default!;
         [Dependency] private IOverlayManager _overlayManager = default!;
         [Dependency] private IChatManager _chatManager = default!;
+        [Dependency] private IChatLogManager _chatLogManager = default!;
         [Dependency] private IClientPreferencesManager _clientPreferencesManager = default!;
         [Dependency] private EuiManager _euiManager = default!;
         [Dependency] private IVoteManager _voteManager = default!;
@@ -162,6 +163,7 @@ namespace Content.Client.Entry
             _overlayManager.AddOverlay(new RadiationPulseOverlay());
             _overlayManager.AddOverlay(new ScreechShockWaveOverlay());
             _chatManager.Initialize();
+            _chatLogManager.Initialize();
             _clientPreferencesManager.Initialize();
             _euiManager.Initialize();
             _voteManager.Initialize();
@@ -235,6 +237,12 @@ namespace Content.Client.Entry
                     updateSystem.RunUpdates();
                 }
             }
+        }
+
+        public override void Shutdown()
+        {
+            base.Shutdown();
+            _chatLogManager.Shutdown();
         }
     }
 }
